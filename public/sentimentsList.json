@@ -1,0 +1,18 @@
+[
+    {
+        "value": "POSITIVE",
+        "label": "مثبت",
+        "disabled": false
+    },
+    {
+        "value": "NEUTRAL",
+        "label": "خنثی",
+        "disabled": false
+    },
+    {
+        "value": "NEGATIVE",
+        "label": "منفی",
+        "disabled": false
+    }
+    
+]

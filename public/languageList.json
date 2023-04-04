@@ -1,0 +1,14 @@
+[
+    {
+        "value": "fa-ir",
+        "label": "فارسی",
+        "disabled": false
+    },
+    {
+        "value": "en-us",
+        "label": "English",
+        "disabled": false
+    }
+    
+]
+

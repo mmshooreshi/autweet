@@ -195,7 +195,7 @@ export default defineComponent({
             }
 
             if (error?.value) {
-                errMsg.value = error.value.data.error.message
+                errMsg.value = error.value.data
             }
 
             loading.value = false

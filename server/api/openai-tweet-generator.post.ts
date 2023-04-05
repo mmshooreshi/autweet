@@ -30,7 +30,7 @@ console.log("\n \n")
   try {
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      messages: [{"role": "system", "content": "salam"}],
+      messages: [{"role": "system", "content": prompt}],
       temperature: 0.6,
       max_tokens: 1000,
       top_p: 1,
@@ -39,6 +39,7 @@ console.log("\n \n")
     })
     console.log(response)
     const tweetGenResult = response.data.choices[0].message?.content
+
     return tweetGenResult
   } catch (error) {
     return createError({

@@ -3,8 +3,8 @@
     <div class="max-w-5xl py-8 px-4 mx-auto rtl">
 
         <Head>
-            <Title>Tweet Generation AI</Title>
-            <Meta name="description" content="Generate tweets with AI based on your preferences." />
+            <Title>خودکار توییت بساز</Title>
+            <Meta name="description" content="" />
         </Head>
         <ClientOnly>
             <FullScreenLoading v-if="loading" />

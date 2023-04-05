@@ -6,16 +6,18 @@ interface TweetGen {
   focusAreas: []
   inputSamples: string
   language: string
-  tone: string
+  tones: []
+  sentiments: string
   topicsList: string
   tweetCount: number
   userPreferences: []
 }
 
 export default defineEventHandler(async (event) => {
-  const body: TweetGen = await readBody(event)
-  const { focusAreas,inputSamples,language,tone,topicsList,tweetCount,userPreferences } = body
-const prompt = `"🌟💫 Generate ${tweetCount} mind-blowing ${language} tweets on extraordinary topics like ${topicsList}! Set the vibe with a ${tone} tone, and unleash creativity using eye-catching hashtags, mentions, and emojis. 🚀🎭 Focus your magic on ${focusAreas}. Craft each tweet to be a one-of-a-kind gem, concise yet within Twitter's 280-character realm. 🌈🔮 Line 'em up with a newline separator. Tailor tweets to ${userPreferences} for an out-of-this-world experience! ✨🌍 Let these dazzling input samples light your way: ${inputSamples}. 🎇🔥 all in ${language} language"`
+  const body: TweetGen = await readBody(event)  
+  const { tweetCount,topicsList,tones,sentiments,focusAreas,userPreferences,inputSamples,language}=body
+
+const prompt = `"🌟💫 Generate ${tweetCount} mind-blowing ${language} tweets on extraordinary topics like ${topicsList}! Set the vibe with these tones: ${tones}. also brint ${sentiments} sentiment into your tweet contents. and unleash creativity using eye-catching hashtags, mentions, and emojis. 🚀🎭 Focus your magic on ${focusAreas}. Craft each tweet to be a one-of-a-kind gem, concise yet within Twitter's 280-character realm. 🌈🔮 Line 'em up with a newline separator. Tailor tweets to ${userPreferences} for an out-of-this-world experience! ✨🌍 Let these dazzling input samples light your way: ${inputSamples}. 🎇🔥 all in ${language} language"`
 console.log(prompt)
   const config = useRuntimeConfig()
   const apiKey = config.chatgpt?.apiKey

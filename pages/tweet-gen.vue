@@ -107,7 +107,6 @@ export default defineComponent({
         const focusAreasOptions = ref([])
         const userPreferencesOptions = ref([])
         const tonesOptions = ref([])
-
         const sentiments = ref()
 
         const fetchData = async () => {
@@ -125,7 +124,7 @@ export default defineComponent({
             }
 
             tonesOptions.value = mapTonesListToSelectItems(tonesResult.data.value)
-            console.log(   tonesOptions.value )
+            console.log(tonesOptions.value )
         }
 
         fetchData()

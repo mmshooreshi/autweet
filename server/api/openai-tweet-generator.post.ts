@@ -30,7 +30,7 @@ console.log("\n \n")
   try {
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      messages: [{"role": "system", "content": prompt}],
+      messages: [{"role": "system", "content": "salam"}],
       temperature: 0.6,
       max_tokens: 1000,
       top_p: 1,

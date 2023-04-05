@@ -83,7 +83,7 @@
         </ClientOnly>
     </div>
 </template>
-<script lang="ts">
+<script >
 import { defineComponent, ref } from 'vue'
 import Multiselect from '@vueform/multiselect'
 import { SelectItem } from '@/model/SelectItem'
@@ -104,10 +104,10 @@ export default defineComponent({
         const tweetResult = ref('')
         const errMsg = ref('')
         const loading = ref(false)
-        const topicListOptions = ref([] as SelectItem[])
-        const focusAreasOptions = ref([] as SelectItem[])
-        const userPreferencesOptions = ref([] as SelectItem[])
-        const tonesOptions = ref([] as SelectItem[])
+        const topicListOptions = ref([])
+        const focusAreasOptions = ref([])
+        const userPreferencesOptions = ref([])
+        const tonesOptions = ref([])
 
         const sentiments = ref()
 
@@ -116,11 +116,11 @@ export default defineComponent({
             const focusAreasResult = await useFetch('/api/focus-areas', { method: 'get' })
             const userPrefsResult = await useFetch('/api/user-preferences', { method: 'get' })
             const tonesResult = await useFetch('/api/tones', { method: 'get' })
-            topicListOptions.value = topicsResult.data.value as SelectItem[]
-            focusAreasOptions.value = focusAreasResult.data.value as SelectItem[]
-            userPreferencesOptions.value = userPrefsResult.data.value as SelectItem[]
-            const mapTonesListToSelectItems = (tonesList: any[]): SelectItem[] => {
-                return tonesList.map((tone: any) => {
+            topicListOptions.value = topicsResult.data.value 
+            focusAreasOptions.value = focusAreasResult.data.value
+            userPreferencesOptions.value = userPrefsResult.data.value 
+            const mapTonesListToSelectItems = (tonesList) => {
+                return tonesList.map((tone) => {
                     return { value: tone.en, label: tone.fa}
                 })
             }

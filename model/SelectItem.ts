@@ -3,8 +3,8 @@ interface SelectItemBase {
     label: string
 }
 
-type SelectItemWithOptionalDisabled = SelectItemBase & { disabled?: boolean }
-
-type SelectItem = SelectItemWithOptionalDisabled | SelectItemBase
+interface SelectItem extends SelectItemBase {
+    disabled?: boolean
+}
 
 export { SelectItem }

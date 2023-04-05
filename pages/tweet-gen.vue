@@ -86,7 +86,6 @@
 <script >
 import { defineComponent, ref } from 'vue'
 import Multiselect from '@vueform/multiselect'
-import { SelectItem } from '@/model/SelectItem'
 
 export default defineComponent({
     components: {

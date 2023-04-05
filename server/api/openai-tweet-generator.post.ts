@@ -32,7 +32,7 @@ console.log("\n \n")
       model: 'gpt-3.5-turbo',
       messages: [{"role": "system", "content": "You are a professional tweet generator."}, {"role":"user", "content":prompt}],
       temperature: 0.6,
-      max_tokens: 1000,
+      max_tokens: 3000,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0

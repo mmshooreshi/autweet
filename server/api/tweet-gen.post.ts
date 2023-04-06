@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
    completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: pre_prompt }],
-    max_tokens: 250
+    max_tokens: 2500
   });
 }
 catch(error){

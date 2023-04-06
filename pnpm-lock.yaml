@@ -4,6 +4,9 @@ dependencies:
   '@pinia/nuxt':
     specifier: ^0.4.7
     version: 0.4.7(typescript@4.4.4)(vue@3.2.47)
+  '@vercel/edge':
+    specifier: ^0.3.1
+    version: 0.3.1
   nuxi:
     specifier: ^3.3.3
     version: 3.3.3
@@ -1663,6 +1666,10 @@ packages:
       unhead: 1.1.25
       vue: 3.2.47
     dev: true
+
+  /@vercel/edge@0.3.1:
+    resolution: {integrity: sha512-NdJxoaUI/AMvSu9dBM5MA1mxzk+Xo1sMrjyNRtNGsH5iKYyMdMWNUEvHdkyn1kN6opM03rQHYOYgXhBwNyIfdQ==}
+    dev: false
 
   /@vercel/nft@0.22.6:
     resolution: {integrity: sha512-gTsFnnT4mGxodr4AUlW3/urY+8JKKB452LwF3m477RFUJTAaDmcz2JqFuInzvdybYIeyIv1sSONEJxsxnbQ5JQ==}

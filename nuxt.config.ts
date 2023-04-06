@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     '@nuxt/image-edge',
     'nuxt-icon',
     'nuxt-font-loader',
+    '@vercel/edge',
     [
       '@pinia/nuxt',
       {

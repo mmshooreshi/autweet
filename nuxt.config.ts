@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 },
   runtimeConfig: {
     chatgpt: {
-      apiKey: ''
+      apiKey: process.env.NUXT_CHATGPT_API_KEY || ''
     }
   },
   app: {

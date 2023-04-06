@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
+    "nuxi": "^3.3.3",
     "openai": "3.2.1",
     "postcss-rtlcss": "^4.0.3",
     "sass": "^1.60.0",

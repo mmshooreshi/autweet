@@ -1,11 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "build": "nuxi build",
+    "dev": "nuxi dev",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview",
+    "postinstall": "nuxi prepare",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint-f": "eslint --fix --ext .ts,.js,.vue ."
   },
@@ -35,6 +35,7 @@
     "openai": "3.2.1",
     "postcss-rtlcss": "^4.0.3",
     "sass": "^1.60.0",
+    "typescript": "4.4.4",
     "vue-json-viewer": "^3.0.4"
   }
 }

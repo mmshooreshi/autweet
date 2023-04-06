@@ -1,0 +1,7 @@
+{
+    "functions": {
+      "api/tweet-gen": {
+        "timeout": 60
+      }
+    }
+  }

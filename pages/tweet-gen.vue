@@ -64,8 +64,8 @@
                 <label class="block">
                     <span class="font-bold p-2 text-xl leading-7">زبان</span>
                     <select v-model="language" class="form-select mt-1 block w-full text-black">
-                        <option value="en">English</option>
-                        <option value="fa">فارسی</option>
+                        <option value="english">English</option>
+                        <option value="persian">فارسی</option>
                     </select>
                 </label>
                 <button type="submit"

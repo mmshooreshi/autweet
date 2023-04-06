@@ -38,9 +38,8 @@
 
                 <label class="block">
                     <span class="font-bold p-2 text-xl leading-7">لحن (Tone)</span>
-                    <multiselect v-model="tones" mode="tags" :options="tonesOptions" :seaarchable="true"   :can-clear="false" 
-                        placeholder="لحن توییت‌های درخواستی‌تان را از میان گزینه‌ها انتخاب کنید. برای مثال بامزه وطنز، جدی، و ... می‌تواند مثال‌های خوبی باشد."
-                        >
+                    <multiselect v-model="tones" mode="tags" :options="tonesOptions" :searchable="true" :can-clear="false"
+                        placeholder="لحن توییت‌های درخواستی‌تان را از میان گزینه‌ها انتخاب کنید. برای مثال بامزه وطنز، جدی، و ... می‌تواند مثال‌های خوبی باشد.">
                     </multiselect>
                 </label>
 
@@ -70,7 +69,7 @@
                 </label>
                 <button type="submit"
                     class="inline-flex justify-center items-center py-2 px-4 text-sm
-                                                                font-medium shadow-sm border border-black dark:border-white">
+                                                                        font-medium shadow-sm border border-black dark:border-white">
                     <span>بزن بریم</span>
                 </button>
                 <span v-if="errMsg" class="text-red-500">
@@ -114,17 +113,17 @@ export default defineComponent({
             const focusAreasResult = await useFetch('/api/focus-areas', { method: 'get' })
             const userPrefsResult = await useFetch('/api/user-preferences', { method: 'get' })
             const tonesResult = await useFetch('/api/tones', { method: 'get' })
-            topicListOptions.value = topicsResult.data.value 
+            topicListOptions.value = topicsResult.data.value
             focusAreasOptions.value = focusAreasResult.data.value
-            userPreferencesOptions.value = userPrefsResult.data.value 
+            userPreferencesOptions.value = userPrefsResult.data.value
             const mapTonesListToSelectItems = (tonesList) => {
                 return tonesList.map((tone) => {
-                    return { value: tone.en, label: tone.fa}
+                    return { value: tone.en, label: tone.fa }
                 })
             }
 
             tonesOptions.value = mapTonesListToSelectItems(tonesResult.data.value)
-            console.log(tonesOptions.value )
+            console.log(tonesOptions.value)
         }
 
         fetchData()
@@ -174,8 +173,11 @@ export default defineComponent({
                 return
             }
 
-            const { data, error } = await useFetch('/api/openai-tweet-generator', {
+            const { data, error } = await useFetch('/api/tweet-gen', {
                 method: 'post',
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: {
                     tweetCount: tweetCount.value,
                     topicsList: topicsList.value,
@@ -193,7 +195,7 @@ export default defineComponent({
             }
 
             if (error?.value) {
-                
+
             }
 
             loading.value = false

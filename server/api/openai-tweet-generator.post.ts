@@ -1,7 +1,7 @@
 import { Configuration, OpenAIApi } from 'openai'
 interface TweetGen {
   focusAreas: []
-  "inputSamples": string
+  inputSamples: string
   language: string
   tones: []
   sentiments: string
@@ -9,7 +9,6 @@ interface TweetGen {
   tweetCount: number
   userPreferences: []
 }
-
 
 export default defineEventHandler(async (event) => {
   const body: TweetGen = await readBody(event)  

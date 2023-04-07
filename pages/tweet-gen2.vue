@@ -38,7 +38,7 @@
 
                 <label class="block">
                     <span class="font-bold p-2 text-xl leading-7">لحن (Tone)</span>
-                    <multiselect v-model="tones" mode="tags" :options="tonesOptions" :searchable="true" :can-clear="false" 
+                    <multiselect v-model="tones" mode="tags" :options="tonesOptions" :searchable="true" :can-clear="false"
                         placeholder="لحن توییت‌های درخواستی‌تان را از میان گزینه‌ها انتخاب کنید. برای مثال بامزه وطنز، جدی، و ... می‌تواند مثال‌های خوبی باشد.">
                     </multiselect>
                 </label>
@@ -69,7 +69,7 @@
                 </label>
                 <button type="submit"
                     class="inline-flex justify-center items-center py-2 px-4 text-sm
-                                                                font-medium shadow-sm border border-black dark:border-white">
+                                                                    font-medium shadow-sm border border-black dark:border-white">
                     <span>بزن بریم</span>
                 </button>
                 <span v-if="errMsg" class="text-red-500">
@@ -91,8 +91,8 @@ export default defineComponent({
         Multiselect
     },
     setup() {
-        const tweetCount = ref()
-        const topicsList = ref()
+        const tweetCount = ref(2)
+        const topicsList = ref("تست")
         const tones = ref()
         const focusAreas = ref()
         const userPreferences = ref()
@@ -113,12 +113,13 @@ export default defineComponent({
             const focusAreasResult = await useFetch('/api/focus-areas', { method: 'get' })
             const userPrefsResult = await useFetch('/api/user-preferences', { method: 'get' })
             const tonesResult = await useFetch('/api/tones', { method: 'get' })
-            topicListOptions.value = topicsResult.data.value 
+            topicListOptions.value = topicsResult.data.value
             focusAreasOptions.value = focusAreasResult.data.value
-            userPreferencesOptions.value = userPrefsResult.data.value 
+            userPreferencesOptions.value = userPrefsResult.data.value
+           
             const mapTonesListToSelectItems = (tonesList) => {
                 return tonesList.map((tone) => {
-                    return { value: tone.en, label: tone.fa}
+                    return { value: tone.en, label: tone.fa }
                 })
             }
 
@@ -129,7 +130,7 @@ export default defineComponent({
         fetchData()
 
         const generateTweets = async () => {
-            loading.value = true
+            // loading.value = true
             errMsg.value = ''
 
             if (!tweetCount.value) {
@@ -173,7 +174,7 @@ export default defineComponent({
                 return
             }
 
-            const { data, error } = await useFetch('/api/openai-tweet-generator', {
+            const response = await useFetch('/api/tweet-gen', {
                 method: 'post',
                 headers: {
                     "Content-Type": "application/json"
@@ -190,15 +191,38 @@ export default defineComponent({
                 }
             })
 
-            if (data?.value) {
-                tweetResult.value = data.value.toString()
+
+            const data = response.data.value;
+            if (!data) {
+                return;
             }
 
-            if (error?.value) {
-                
-            }
 
-            loading.value = false
+            const reader = data.getReader();
+            const decoder = new TextDecoder();
+            let done = false;
+            // loading.value = false
+
+            const processChunk = async ({ value, done: doneReading }) => {
+                done = doneReading;
+                const chunkValue = decoder.decode(value);
+                tweetResult.value = tweetResult.value + chunkValue
+                console.log(chunkValue)
+
+                if (!done) {
+                await reader.read().then(processChunk);
+                }
+            }
+            await reader.read().then(processChunk);
+            // if (data?.value) {
+            //     tweetResult.value = data.value.toString()
+            // }
+
+            // if (error?.value) {
+
+            // }
+
+            // loading.value = false
         }
 
         return {

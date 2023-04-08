@@ -7,6 +7,13 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default defineEventHandler(async (event) => {
+
+  event.node.res.setHeader('Content-Type', 'text/plain');
+    event.node.res.setHeader("Transfer-Encoding", "chunked");
+    // event.node.res.setHeader("X-Content-Type-Options","nosniff");
+    event.node.res.setHeader("Connection", "keep-alive");
+  
+
   const body = await readBody(event);
   const {
     tweetCount,
@@ -25,33 +32,54 @@ export default defineEventHandler(async (event) => {
     userPreferences
   )}"`;
 
-  const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
-      { role: "system", content: "You are a professional tweet generator." },
-      { role: "user", content: prePrompt },
-    ],
-    temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    max_tokens: 2000,
-    stream: true,
-    n: 1,
+
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
+    },
+    method: "POST",
+    body: JSON.stringify({
+      model: "gpt-3.5-turbo",
+      messages: [{ "role": "user", "content": prePrompt }],
+      max_tokens: 2000,
+      stream: true,
+      stop: ["\n\n"],
+    }),
   });
 
-  event.node.res.writeHead(200, {
-    "Content-Type": "application/json",
-    "Transfer-Encoding": "chunked",
-    "X-Content-Type-Options": "nosniff",
-    "Cache-Control": "no-cache",
-    Connection: "keep-alive",
-  });
 
-  for await (const chunk of completion.data.choices) {
-    event.node.res.write(JSON.stringify({ success: true, data: chunk }));
-    event.node.res.write("\r\n");
+
+
+
+
+  const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
+
+  while (true) {
+    let j =""
+    const res:any = await reader?.read();
+    console.log(res.value)
+  //   try{
+  //     const text=res.value
+  //     const jsonStr = text.substring(6, text.indexOf("\n"));          
+  //     j =JSON.parse(jsonStr).choices[0].delta.content
+  //     console.log(j)
+  //     event.node.res.write(j)
+  // }
+  // catch(e){
+  //   // console.log(e)
+  // }
+    try{
+      event.node.res.write(JSON.parse(res.value.substring(6, res.value.indexOf("\n"))).choices[0].delta.content)
   }
+    catch(e){}
+    // event.node.res.write("\r\n");
+
+    if (res?.done){ break;}
+    console.log("Received", res?.value);
+  }
+
+  
 
   event.node.res.end();
 });

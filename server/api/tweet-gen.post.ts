@@ -1,6 +1,9 @@
 import { Configuration, OpenAIApi } from "openai";
 
-const config = useRuntimeConfig()
+// const config = useRuntimeConfig()
+export const config = {
+  runtime: 'edge',
+};
 const configuration = new Configuration({
   apiKey: "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",
 });

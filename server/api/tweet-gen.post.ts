@@ -1,11 +1,10 @@
 import { Configuration, OpenAIApi } from "openai";
 
 // const config = useRuntimeConfig()
+export const config = {
+  runtime: 'edge',
+};
 
-const configuration = new Configuration({
-  apiKey: "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",
-});
-const openai = new OpenAIApi(configuration);
 
 export default defineEventHandler(async (event) => {
 
@@ -50,16 +49,12 @@ export default defineEventHandler(async (event) => {
   });
 
 
-
-
-
-
   const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
 
   while (true) {
     let j =""
     const res:any = await reader?.read();
-    console.log(res.value)
+    // console.log(res.value)
   //   try{
   //     const text=res.value
   //     const jsonStr = text.substring(6, text.indexOf("\n"));          
@@ -77,7 +72,7 @@ export default defineEventHandler(async (event) => {
     // event.node.res.write("\r\n");
 
     if (res?.done){ break;}
-    console.log("Received", res?.value);
+    // console.log("Received", res?.value);
   }
 
   
